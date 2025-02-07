@@ -1,0 +1,308 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #fff6da;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+/* ----------------------------navbar css start------------------------------- */
+
+nav {
+  background-color: #fff0c1;
+  display: block;
+  border-bottom: 1px solid #000;
+}
+
+.nav-container {
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-form-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-container .nav-logo {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-container .nav-logo i {
+  width: 29px;
+  height: 39.9px;
+  color: #889e73;
+  font-size: 2rem;
+}
+
+.nav-title h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 24px;
+  color: rgb(0, 0, 0);
+  padding: 0.125em 0;
+}
+
+.underline {
+  border-bottom: 3px solid #000;
+  width: 100%;
+}
+
+.nav-form-account .nav-from-account-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.nav-form-account .nav-form-settings {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-form-account .nav-form-settings:active {
+  background-color: #f4d793;
+  border-radius: 50%;
+}
+
+.nav-form-account .nav-form-settings i {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  color: #ffffff;
+  background-color: #a94a4a;
+  padding: 0 24px;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  line-height: 36px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.button:hover {
+  background-color: #f4d793;
+  color: #000;
+  transition: all 0.2s;
+}
+
+.button:active {
+  background-color: #a94a4a;
+  transition: all 0.2s;
+}
+
+/* --------------------------------------------navbar css end-------------------------------------------- */
+
+/* --------------------------------------------sidebar css start-------------------------------------------- */
+
+.sidebar {
+  width: 200px;
+  height: calc(100vh - 70px);
+  background-color: #fff0c1;
+  padding: 20px;
+  border-right: 1px solid #000;
+}
+
+.profile {
+  display: flex;
+  padding: 20px 0;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #000;
+}
+
+.profile-info h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0.25em;
+}
+
+.profile-info p {
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.sidebar-buttons {
+  height: calc(100% - 84.334px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* --------------------------------------------sidebar css end-------------------------------------------- */
+
+/* body-container-start */
+.body-container {
+  display: flex;
+  gap: 20px;
+}
+/* body-container-end */
+
+/* survey list start */
+.survey-list-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.survey-list-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+
+.survey-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.survey-card {
+  width: 200px;
+  height: 120px;
+  padding: 15px;
+  background-color: #fff0c1;
+  border: 1px solid #000;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.survey-card:hover {
+  background-color: #fed36e;
+}
+
+
+.survey-card h3 {
+  font-size: 1.25rem;
+  font-weight: 6 00;
+  color: #a94a4a;
+  margin-bottom: 10px;
+}
+
+.survey-card p {
+  font-size: 1rem;
+  color: #5d5d5d;
+}
+/* survey list end */
+
+/* active button start */
+
+.active {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 100%;
+  margin-top: 10px;
+  border-top: 1px solid #000;
+  padding-top: 10px;
+}
+
+.active input {
+  width: 30px;
+  height: 15px;
+  appearance: none;
+  background-color: #ccc;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.active input:checked {
+  background-color: #a94a4a;
+}
+
+.active input::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 2.5px;
+  left: 2.5px;
+  transition: transform 0.3s;
+}
+
+.active input:checked::before {
+  transform: translateX(15px);
+}
+
+.active label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+
+.active button {
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active i {
+  font-size: 1rem;
+}
+
+
+.active .delete i {
+  color: rgb(254, 132, 132);             
+}
+
+.active .delete:hover i {
+  color: #ff0000;  
+}
+
+.active .preview i {
+  color: #5a5a5a; 
+}
+
+.active .preview:hover i {
+  color: #000000; 
+}
+
+.active .delete:active i {
+  color: #fff;
+}
+
+.active .preview:active i {
+  color: #fff;
+}
+/* active button end */
