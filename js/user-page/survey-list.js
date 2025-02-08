@@ -1,6 +1,6 @@
 import { createElement } from "../generator.js";
 import { surveyListContainer, surveyCards } from "./data.js";
-import { navigateTo } from "./routing.js";
+import { navigateTo } from "../../script.js";
 
 export function surveyListInit(div) {
   createElement(surveyListContainer, div);
@@ -12,7 +12,7 @@ export function surveyListInit(div) {
 
   surveyCardList.forEach((card) => {
     card.addEventListener("click", () => {
-      navigateTo("survey");
+      navigateTo("user/survey");
     });
   });
 

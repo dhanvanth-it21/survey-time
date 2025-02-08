@@ -5,6 +5,7 @@ export function surveyListInit(div) {
   createElement(surveyListContainer, div);
   const cardsContainer = document.querySelector(".survey-cards");
 
+  // inserting the survey cards
   createElement(surveyCards, cardsContainer);
 
 }

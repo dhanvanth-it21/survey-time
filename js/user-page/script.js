@@ -18,6 +18,8 @@ export function userPageInit() {
     const page = document.createElement('div');
     page.className = 'page';
     div.appendChild(page);
+
+    surveyListInit(page);
 }
 
 

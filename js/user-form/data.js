@@ -121,8 +121,8 @@ export const survey = {
       question: "Question4 - para",
       type: "text",
       required: false,
-      // minLength: "5",
-      // maxLength: "10",
+      minLength: "5",
+      maxLength: "10",
     },
     {
       questionId: 5,
@@ -157,3 +157,18 @@ export const survey = {
     },
   ],
 };
+
+
+const response = {
+  "1": "MC-1.",
+  "2": [
+      "CB-1.",
+      "CB-2."
+  ],
+  "3": "DD-1.",
+  "4": "",
+  "5": "150",
+  "6": "2025-02-08",
+  "7": "02:04",
+  "8": {}
+}

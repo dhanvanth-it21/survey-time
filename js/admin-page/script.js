@@ -1,7 +1,7 @@
 import { sideBarInit } from "./side-bar.js"
 import { navBarInit } from "./nav-bar.js"
-import { surveyListInit } from "./survey-list.js"
-
+import { navigateTo } from "../../script.js";
+import { surveyListInit } from "./survey-list.js";
 
 
 export function adminPageInit() {
@@ -18,7 +18,10 @@ export function adminPageInit() {
     const page = document.createElement('div');
     page.className = 'page';
     div.appendChild(page);
-}
+
+    surveyListInit(page);
+
+} 
 
 
 

@@ -1,6 +1,6 @@
 import { createElement } from '../generator.js';
 import { navBar } from './data.js';
-import { navigateTo } from './routing.js';
+import { navigateTo } from '../../script.js';
 
 export function navBarInit() {
   createElement(navBar, document.body);
@@ -9,6 +9,6 @@ export function navBarInit() {
 
 function addCreateButtonEventListener() {
   document.querySelector('.create').addEventListener('click', () => {
-    navigateTo('create-survey');
+    navigateTo('admin/create-survey');
   });
 }

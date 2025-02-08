@@ -82,7 +82,7 @@ function numberQuestionConstrain(questionContainer, question) {
   }
   const numberValue = questionContainer.querySelector("div.question-item > input").value;
   if(!(question.getAttribute("min_value") && question.getAttribute("max_value"))) return null;
-  if(min_value && max_value && !(numberValue === "")) {
+  if(!(numberValue === "")) {
     const min_value = parseInt(question.getAttribute("min_value"));
     const max_value = parseInt(question.getAttribute("max_value"));
     if(!(numberValue >= min_value && numberValue <= max_value)) {
