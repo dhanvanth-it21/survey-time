@@ -6,7 +6,7 @@ import { headingInit, navBarInit } from "./header.js";
 import { convertToJson } from "./form-json.js";
 import { completeValidation, singleQCValidation } from "./validator.js";
 
-window.addEventListener("load", () => {
+export function createSurveyInit() {
   navBarInit(); //nav bar creation
   headingInit(); //form heading creation
   sideMenuInit(); // side menu creation
@@ -20,4 +20,4 @@ window.addEventListener("load", () => {
   });
   const validate = document.querySelector(".top-validate");
   validate.addEventListener("click", () => completeValidation());
-});
+}

@@ -5,7 +5,8 @@ import { isFormValid } from "./user-validation.js";
 
 
 
-//initializing the navBar
+export function userFormInit() {
+  //initializing the navBar
 createElement(navBar, document.body);
 
 userPage(survey);
@@ -40,5 +41,6 @@ submitButton.addEventListener('click',(event) => {
   }
 })
 
+}
 
 

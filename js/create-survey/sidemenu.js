@@ -51,8 +51,8 @@ function sideMenuPosition(div) {
   const rect = div.getBoundingClientRect();
   const sideMenu = document.querySelector(".side-menu");
   sideMenu.style.left = `${rect.right  + 10}px`;
-  sideMenu.style.top = `${rect.top + window.scrollY}px`;
-  sideMenu.style.height = `${rect.height}px`;
+  sideMenu.style.top = `${rect.top + window.scrollY + rect.height - 120}px`;
+  sideMenu.style.height = `120px`;
   sideMenu.style.display = "flex";
 }
 
