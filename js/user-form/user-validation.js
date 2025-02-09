@@ -57,7 +57,7 @@ function textQuestionConstrain(questionContainer, question) {
   if (isRequired) {
     //handling the input to be checked
     const questionItem = questionContainer.querySelector("div.question-item");
-    const textTag = questionItem.querySelector("input");
+    const textTag = questionItem.querySelector("textarea");
     if (textTag.value === "") return "This question is required";
   }
   const textLength = questionContainer.querySelector("div.question-item > textarea").value.length;

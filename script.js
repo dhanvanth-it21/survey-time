@@ -2,8 +2,10 @@ import { createElement } from './js/generator.js';
 import { navBar, login } from './data.js';
 import { surveyListInit } from './js/admin-page/survey-list.js';
 
+export const serverIp = "192.168.1.34";
+
+
 window.addEventListener('load', () => {
-    console.log('Page loaded');
     handleRouteChange();
 });
 
@@ -20,7 +22,6 @@ window.addEventListener('popstate', handleRouteChange);
 
 // Function to handle routing based on URL changes
 function handleRouteChange() {
-    console.log('Route changed:', window.location.pathname);
     const path = window.location.pathname.replace("/", ""); 
 
     const routes = {
@@ -29,8 +30,11 @@ function handleRouteChange() {
         "admin": lazyAdminInit,
         "user": lazyUserInit,
         "admin/create-survey": loadCreateSurveyPage,
-        "user/survey": loadSurveyPage,
-
+        "user/survey": () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            loadSurveyPage(id);
+        },
     };
 
     const routeAction = routes[path] || routes[window.location.pathname.replace("/", "")];
@@ -93,7 +97,6 @@ function lazyUserInit() {
 function loadCreateSurveyPage() {
     document.body.innerHTML = '';
     //lazy loading for creating new survey  
-    console.log("loadCreateSurveyPage");
     if(window.createSurveyInit) {
         window.createSurveyInit();
         updateStylesheet("css/create-survey/style.css");
@@ -109,16 +112,16 @@ function loadCreateSurveyPage() {
 
 
 // Function to load the survey page
-function loadSurveyPage() {
+function loadSurveyPage(id) {
     document.body.innerHTML = '';
     //lazy loading
     if(window.userFormInit) {
-        window.userFormInit();
+        window.userFormInit(id);
         updateStylesheet("css/user-form/style.css");
     } else {
         import('./js/user-form/script.js')
             .then(m => {
-                m.userFormInit();
+                m.userFormInit(id);
                 updateStylesheet("../css/user-form/style.css");
             })
             .catch(err => console.error('Failed to load create survey script:', err));
