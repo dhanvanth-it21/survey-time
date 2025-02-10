@@ -79,6 +79,135 @@ export async  function AdminPreviewInit(id) {
 }
 
 
+export async  function AdminResponseInit(id, surveyId) {
+  createElement(navBar, document.body);
+
+  const submit = document.querySelector(".submit");
+  submit.style.display = "none";
+
+  const survey  = (await  fetchSurveyCard(surveyId)).surveyObject;
+  console.log(survey);
+
+  //fetching the response
+  const response = (await fetchResponse(id)).responseObject;
+  console.log(response);
+
+  //mark the response
+  
+
+  userPage(survey, response);
+
+  //user page
+  function userPage(survey, response) {
+    createElement(userJsonConverter(survey, response), document.body);
+    const inputList = document.querySelectorAll("input");
+    inputList.forEach(input => {
+      input.disabled = true;
+    })
+    const textAreaList = document.querySelectorAll("textarea");
+    textAreaList.forEach(textarea => {
+      textarea.disabled = true;
+    })
+    const selectList = document.querySelectorAll("select");
+    selectList.forEach(select => {
+      select.disabled = true;
+    });
+
+    markAnswer(response);
+  }
+
+  
+
+  
+  
+
+  
+}
+
+
+function markAnswer(response) {
+  //marking the response
+  const questionOptions = document.querySelectorAll(".question-options");
+  questionOptions.forEach((questionOption) => {
+    const name = questionOption.getAttribute("name");
+    const answer = response[name];
+    if (answer) {
+      const inputs = questionOption.querySelectorAll("input");
+      inputs.forEach((input) => {
+        if (Array.isArray(answer)) {
+          if (answer.includes(input.value)) {
+            input.checked = true;
+          }
+        } else {
+          if (input.value === answer) {
+            input.checked = true;
+          }
+        }
+      });
+    }
+  });
+
+  //populating dropdowns
+  const dropdowns = document.querySelectorAll("select");
+  dropdowns.forEach((dropdown) => {
+    const name = dropdown.getAttribute("name");
+    const answer = response[name];
+    if (answer) {
+      dropdown.value = answer;
+    }
+  });
+
+  //populating textareas
+  const textareas = document.querySelectorAll("textarea");
+  textareas.forEach((textarea) => {
+    const name = textarea.getAttribute("name");
+    const answer = response[name];
+    if (answer) {
+      textarea.value = answer;
+    }
+  });
+
+  //populating number inputs
+  const numberInputs = document.querySelectorAll("input[type='number']");
+  numberInputs.forEach((input) => {
+    const name = input.getAttribute("name");
+    const answer = response[name];
+    if (answer) {
+      input.value = answer;
+    }
+  });
+
+  //populating date inputs
+  const dateInputs = document.querySelectorAll("input[type='date']");
+  dateInputs.forEach((input) => {
+    const name = input.getAttribute("name");
+    const answer = response[name];
+    if (answer) {
+      input.value = answer;
+    }
+  });
+
+  //populating time inputs
+  const timeInputs = document.querySelectorAll("input[type='time']");
+  timeInputs.forEach((input) => {
+    const name = input.getAttribute("name");
+    const answer = response[name];
+    if (answer) {
+      input.value = answer;
+    }
+  });
+}
+
+
+async function fetchResponse(id) {
+  const apiuri = `http://${serverIp}:8080/responses/${id}`;
+
+  const response = await fetch(apiuri);
+
+  const data =  await response.json();
+  return data;
+}
+
 async function fetchSurveyCard(id) {
   const apiuri = `http://${serverIp}:8080/survey/${id}`;
 
@@ -89,7 +218,7 @@ async function fetchSurveyCard(id) {
 }
 
 function postResponse(response) {
-  const apiuri = `http://${serverIp}:8080/response`;
+  const apiuri = `http://${serverIp}:8080/responses`;
   const responseOptions = {
     method: "POST",
     headers: {

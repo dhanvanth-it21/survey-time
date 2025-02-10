@@ -1,12 +1,9 @@
 import { createElement } from "./js/generator.js";
 import { navBar, login } from "./data.js";
 import { surveyListInit } from "./js/admin-page/survey-list.js";
+import { responseListInit } from "./js/admin-page/response-list.js";
 
-<<<<<<< HEAD
 export const serverIp = "localhost";
-=======
-export const serverIp = "192.168.100.90";
->>>>>>> 6ced8900394a1632ee6621f87975325ac02bde42
 
 window.addEventListener("load", () => {
   handleRouteChange();
@@ -14,15 +11,17 @@ window.addEventListener("load", () => {
 
 // Listen for back/forward navigation
 window.addEventListener("popstate", () => {
-    console.log("Navigated to:", window.location.pathname);
   handleRouteChange();
 });
 
 // Function to navigate to a page by changing the URL and loading the content
 export function navigateTo(page, needHistory = true) {
-  // if(needHistory)
-  history.pushState({ page }, "", `/${page}`);
-  // else history.replaceState({ page }, '', `/${page}`);
+  if (window.location.pathname.replace("/", "") === page) return;
+  if (needHistory) {
+    history.pushState({ page }, "", `/${page}`);
+  } else {
+    history.replaceState({ page }, "", `/${page}`);
+  }
   handleRouteChange();
 }
 
@@ -47,7 +46,13 @@ function handleRouteChange() {
       const id = new URLSearchParams(window.location.search).get("id");
       loadAdminSurveyPreview(id);
     },
+    "admin/response": () => {
+      const id = new URLSearchParams(window.location.search).get("id");
+      const surveyId = new URLSearchParams(window.location.search).get("surveyId");
+      loadAdminResponse(id, surveyId);
+    },
     "admin/survey-list": loadSurveyList,
+    "admin/response-list": loadResponseList,
   };
 
   const routeAction =
@@ -77,20 +82,38 @@ function loadLoginPage() {
 
 // Function to lazy load the admin module
 function lazyAdminInit() {
-  console.log("lazyAdminInit");
   document.body.innerHTML = "";
   if (window.adminPageInit) {
     window.adminPageInit();
     updateStylesheet("css/admin-page/style.css");
-    navigateTo("admin/survey-list");
   } else {
     import("./js/admin-page/script.js")
       .then((m) => {
         m.adminPageInit();
         updateStylesheet("css/admin-page/style.css");
-        navigateTo("admin/survey-list");
+        navigateTo("admin/survey-list", false);
       })
       .catch((err) => console.error("Failed to load admin page script:", err));
+  }
+}
+
+function loadSurveyList() {
+  const page = document.querySelector(".page");
+  if (page) {
+    page.innerHTML = "";
+    surveyListInit(page);
+  } else {
+    navigateTo("admin", false);
+  }
+}
+
+function loadResponseList() {
+  const page = document.querySelector(".page");
+  if (page) {
+    page.innerHTML = "";
+    responseListInit(page);
+  } else {
+    navigateTo("admin", false);
   }
 }
 
@@ -166,14 +189,21 @@ function loadAdminSurveyPreview(id) {
   }
 }
 
-function loadSurveyList() {
-  console.log("1");
-  const page = document.querySelector(".page");
-  if (page) {
-    page.innerHTML = "";
-    surveyListInit(page);
+//Function to load the admin survey response page
+function loadAdminResponse(id, surveyId) {
+  document.body.innerHTML = "";
+  if (window.AdminResponseInit) {
+    window.AdminResponseInit(id, surveyId);
+    updateStylesheet("css/user-form/style.css");
   } else {
-    navigateTo("admin");
+    import("./js/user-form/script.js")
+      .then((m) => {
+        m.AdminResponseInit(id, surveyId);
+        updateStylesheet("../css/user-form/style.css");
+      })
+      .catch((err) =>
+        console.error("Failed to load create survey script:", err)
+      );
   }
 }
 

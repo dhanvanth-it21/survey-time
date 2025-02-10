@@ -1,5 +1,5 @@
 //creating the html-form-body json for user side
-export function userJsonConverter(survey) {
+export function userJsonConverter(survey, ) {
   const finalJson = [
     {
       tag: "div",
