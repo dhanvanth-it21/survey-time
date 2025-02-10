@@ -2,7 +2,7 @@ import { createElement } from './js/generator.js';
 import { navBar, login } from './data.js';
 import { surveyListInit } from './js/admin-page/survey-list.js';
 
-export const serverIp = "192.168.1.34";
+export const serverIp = "localhost";
 
 
 window.addEventListener('load', () => {
