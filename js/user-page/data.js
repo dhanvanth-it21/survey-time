@@ -65,6 +65,21 @@ export const navBar = [
   },
 ];
 
+const users = [
+  {
+    name: "Dhanvanth",
+    email: "sbdhanvanth@gmail.com",
+  },
+  {
+    name: "ram",
+    email: "ram@gmial.com",
+  },
+  {
+    name: "kuamr",
+    email: "kuamr@gmial.com",
+  }
+];
+
 export const sideBar = [
   {
     tag: "div",
@@ -74,19 +89,10 @@ export const sideBar = [
         tag: "div",
         class: "profile",
         children: [
+          profileSelect(),
           {
             tag: "div",
             class: "profile-info",
-            children: [
-              {
-                tag: "h2",
-                text: "Dhanvanth",
-              },
-              {
-                tag: "p",
-                text: "sbdhanvanth@gmail.com",
-              },
-            ],
           },
         ],
       },
@@ -158,5 +164,24 @@ export const surveyCards = [
     ],
   },
 ];
+
+
+
+
+
+export function profileSelect() {
+  const select = {
+    tag: "select",
+    class: "profile-select",
+    children: users.map(user => ({
+      tag: "option",
+      text: user.email,
+      value: `${user.name},${user.email}`,
+    })),
+  };
+
+  return select;
+}
+
 
 

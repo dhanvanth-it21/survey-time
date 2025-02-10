@@ -25,7 +25,7 @@ function formHeadingValidation() {
 function titleValidationMessage(value) {
   if (value === "") {
     return "*Title is required";
-  } else if (value.length < 5) {
+  } else if (value.length < 1) {
     return "*Title must be at least 5 characters";
   } else if (value.length > 100) {
     return "*Title must be less than 100 characters";
@@ -87,7 +87,7 @@ function questionContainersValidation() {
 function questionValidationMessage(value) {
   if (value === "") {
     return "*Question is required";
-  } else if (value.length < 5) {
+  } else if (value.length < 1) {
     return "*Question must be at least 5 characters";
   } else if (value.length > 2000) {
     return "*Question must be less than 2000 characters";
@@ -123,7 +123,7 @@ function questionTypeValidationMessage(questionTypeContainer) {
       const value = option.querySelector("input").value;
       if (value === "") {
         errorMessage = "*Option is empty";
-      } else if (value.length < 5) {
+      } else if (value.length < 1) {
         errorMessage = "*Option must be at least 5 characters";
       } else if (value.length > 200) {
         errorMessage = "*Option must be less than 100 characters";

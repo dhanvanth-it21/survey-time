@@ -19,8 +19,7 @@ export function adminPageInit() {
     page.className = 'page';
     div.appendChild(page);
 
-    surveyListInit(page);
-
+    // surveyListInit(page);
 } 
 
 

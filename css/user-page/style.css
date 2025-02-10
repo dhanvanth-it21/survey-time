@@ -130,6 +130,7 @@ nav {
 
 .profile {
   display: flex;
+  flex-direction: column;
   padding: 20px 0;
   align-items: center;
   margin-bottom: 20px;
@@ -214,4 +215,37 @@ nav {
 }
 /* survey list end */
 
+/* -------------------------------------------------------------------------------------------- */
 
+.profile-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: #fff0c1;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.profile-select option {
+  padding: 10px;
+  background-color: #fff6da;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile-select .profile-info h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #a94a4a;
+  margin: 0;
+}
+
+.profile-select .profile-info p {
+  font-size: 0.875rem;
+  color: #555;
+  margin: 0;
+}

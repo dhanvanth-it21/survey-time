@@ -240,16 +240,13 @@ export const surveyData = {
   ]
 }
 
-const response = {
-  "1": "MC-1.",
-  "2": [
-      "CB-1.",
-      "CB-2."
-  ],
-  "3": "DD-1.",
-  "4": "",
-  "5": "150",
-  "6": "2025-02-08",
-  "7": "02:04",
-  "8": {}
+
+const sampleResponse = {
+  "name": "Dhanvanth",
+  "email": "sbdhanvanth@gmail.com",
+  "surveyId": '67a993354ec96d775f754b7e',
+  "responseObject": {
+      "1": "adsfadsfasdf",
+      "2": "Male--"
+  }
 }

@@ -17,7 +17,9 @@ export async function surveyListInit(div) {
 
   surveyCardList.forEach((card, index) => {
     card.addEventListener("click", () => {
-      navigateTo(`user/survey?id=${surveyCardsDB[index].id}`);
+      const name = document.querySelector('.profile > .profile-select').value.split(',')[0];
+      const email = document.querySelector('.profile > .profile-select').value.split(',')[1];
+      navigateTo(`user/survey?id=${surveyCardsDB[index].id}&name=${name}&email=${email}`);
     });
   });
 
