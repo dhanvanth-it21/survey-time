@@ -31,6 +31,16 @@ export async function surveyListInit(div) {
       navigateTo(`admin/survey?id=${surveyCardsDB[index].id}`)
     });
   });
+
+  //eventen llistner for  survey cards
+  const cards = document.querySelectorAll("div.survey-cards > div");
+  cards.forEach((card,index) => {
+    card.addEventListener('click', () => {
+      const surveyId = surveyCardsDB[index].id;
+      navigateTo(`admin/response-list?surveyId=${surveyId}`,false);
+    })
+  })
+
 }
 
 

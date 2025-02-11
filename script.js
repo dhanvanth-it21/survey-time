@@ -52,7 +52,10 @@ function handleRouteChange() {
       loadAdminResponse(id, surveyId);
     },
     "admin/survey-list": loadSurveyList,
-    "admin/response-list": loadResponseList,
+    "admin/response-list": () => {
+      const surveyId = new URLSearchParams(window.location.search).get("surveyId");
+      loadResponseList(surveyId);
+    },
   };
 
   const routeAction =
@@ -107,11 +110,11 @@ function loadSurveyList() {
   }
 }
 
-function loadResponseList() {
+function loadResponseList(surveyId) {
   const page = document.querySelector(".page");
   if (page) {
     page.innerHTML = "";
-    responseListInit(page);
+    responseListInit(page, surveyId);
   } else {
     navigateTo("admin", false);
   }
