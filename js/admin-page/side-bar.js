@@ -15,7 +15,7 @@ export function sideBarInit(div) {
         // const page = document.querySelector('.page');
         // page.innerHTML = '';
         // responseListInit(page);
-        navigateTo('admin/response-list', false);
+        navigateTo('admin/response-list?surveyId=All', false);
     });
 }
 

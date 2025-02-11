@@ -122,7 +122,10 @@ nav {
 
 .sidebar {
   width: 200px;
-  height: calc(100vh - 70px);
+  /* height: calc(100vh - 68px); */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: #fff0c1;
   padding: 20px;
   border-right: 1px solid #000;
@@ -154,6 +157,11 @@ nav {
   flex-direction: column;
   justify-content: center;
   gap: 10px;
+  flex-grow: 1;
+}
+
+.page {
+  flex: 1;
 }
 
 /* --------------------------------------------sidebar css end-------------------------------------------- */
@@ -196,6 +204,10 @@ nav {
   transition: all 0.3s;
 }
 
+
+.response-card {
+  background-color: #ddffdd;
+}
 .survey-card:hover {
   background-color: #fed36e;
 }
@@ -314,4 +326,8 @@ nav {
   white-space: nowrap;  
   overflow: hidden;    
   text-overflow: ellipsis;
+}
+
+.page {
+  overflow: hidden;
 }

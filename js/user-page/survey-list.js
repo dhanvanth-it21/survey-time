@@ -6,7 +6,12 @@ export async function surveyListInit(div) {
   createElement(surveyListContainer, div);
   const cardsContainer = document.querySelector(".survey-cards");
 
-  const surveyCardsDB = await fetchSurveyCard();
+  const emailId = getEmailId();
+  console.log(emailId);
+
+  // const surveyCardsDB = await fetchSurveyCard();
+
+  const surveyCardsDB = await fetchPendingSurveyCards(emailId);
 
   const surveyCards = converter(surveyCardsDB);
 
@@ -22,9 +27,17 @@ export async function surveyListInit(div) {
       navigateTo(`user/survey?id=${surveyCardsDB[index].id}&name=${name}&email=${email}`);
     });
   });
-
 }
 
+
+async function fetchPendingSurveyCards(emailId) {
+
+  const apiuri = `http://${serverIp}:8080/survey/survey-cards/${emailId}`;
+  
+  const response = await fetch(apiuri);
+  const data = await response.json();
+  return data;
+}
 
 
 async function fetchSurveyCard() {
@@ -56,4 +69,10 @@ function converter(surveyList) {
       ],
     }
   })
+}
+
+
+function getEmailId() {
+  const emailId = document.querySelector('.profile > .profile-select').value.split(',')[1];
+  return emailId;
 }

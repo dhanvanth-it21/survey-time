@@ -9,7 +9,10 @@ export function sideBarInit(div) {
   profileSelect.addEventListener("change", (event) => {
     const selectedProfile = event.target.value;
     profileGenerate(selectedProfile);
-    
+    const page = document.querySelector(".page");
+    page.innerHTML = "";
+    surveyListInit(page);
+
   });
   const surveyList = document.querySelector(".survey-list");
   surveyList.addEventListener("click", () => {

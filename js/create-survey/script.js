@@ -2,7 +2,8 @@ import { sideMenuEventListener, sideMenuInit } from "./sidemenu.js";
 import { headingInit, navBarInit } from "./header.js";
 import { convertToJson } from "./form-json.js";
 import { completeValidation, singleQCValidation } from "./validator.js";
-import { serverIp } from "../../script.js";
+import { navigateTo, serverIp } from "../../script.js";
+
 
 export function createSurveyInit() {
   navBarInit(); //nav bar creation
@@ -15,8 +16,15 @@ export function createSurveyInit() {
     if (completeValidation()) {
       const json = convertToJson();
       postSurvey(json);
+      swal(
+        "Survey Published",
+        "Your survey has been published successfully!",
+        "success"
+      );
+      navigateTo("admin");
     }
   });
+  // adding event listener to validate
   const validate = document.querySelector(".top-validate");
   validate.addEventListener("click", () => completeValidation());
 }
@@ -44,5 +52,3 @@ function postSurvey(json) {
       console.error("Error:", error);
     });
 }
-
-

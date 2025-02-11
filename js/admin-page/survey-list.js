@@ -15,6 +15,22 @@ export async function surveyListInit(div) {
   // createElement(surveyCards, cardsContainer);
   createElement(surveyCards, cardsContainer);
 
+  //event listener fot active status
+  document.querySelectorAll("div.survey-cards > div > div > label > input[type=checkbox]")
+  .forEach((checkbox) => {
+    checkbox.addEventListener("click", (event) => {
+      event.stopPropagation();
+    })
+  })
+
+  //event listener for delete button
+  document.querySelectorAll("div.survey-cards > div > div > button.delete")
+  .forEach((deleteButton) => {
+    deleteButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+    })
+  });
+
   // adding event listener to the survey cards
   const previews = document.querySelectorAll(
     "div.survey-cards > div > div > button.preview"
@@ -23,7 +39,8 @@ export async function surveyListInit(div) {
 
   //preview button 
   previews.forEach((preview, index) => {
-    preview.addEventListener("click", async () => {
+    preview.addEventListener("click", async (event) => {
+      event.stopPropagation();
       console.log("id : " + surveyCardsDB[index].id);
       const survey = await fetchSurveyById(surveyCardsDB[index].id);
       console.log(survey.surveyObject);
@@ -31,6 +48,10 @@ export async function surveyListInit(div) {
       navigateTo(`admin/survey?id=${surveyCardsDB[index].id}`)
     });
   });
+
+
+
+
 
   //eventen llistner for  survey cards
   const cards = document.querySelectorAll("div.survey-cards > div");

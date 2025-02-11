@@ -150,7 +150,7 @@ nav {
 }
 
 .sidebar-buttons {
-  height: calc(100% - 84.334px);
+  height: calc(100% - 144.334px);
   display: flex;
   flex-direction: column;
   justify-content: center;

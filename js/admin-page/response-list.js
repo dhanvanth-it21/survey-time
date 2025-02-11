@@ -1,33 +1,68 @@
-
 import { serverIp, navigateTo } from "../../script.js";
 import { createElement } from "../generator.js";
 import { responseListContainer, responseCards } from "./data.js";
 
 export async function responseListInit(div, surveyId) {
+  const responseCardsDB = surveyId === "All"
+    ? await allResponseListInit(div)
+    : await allResponseListBySurveyIdInit(div, surveyId);
+
+  // Event listener for delete button
+  document.querySelectorAll("div.survey-cards > div > div > button.delete")
+    .forEach((deleteButton) => {
+      deleteButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+      
+      });
+    });
+}
+
+async function allResponseListBySurveyIdInit(div, surveyId) {
+  const responseCardsDB = await fetchAllResponsesBySurveyId(surveyId);
   createElement(responseListContainer, div);
   const cardsContainer = document.querySelector(".survey-cards");
 
   const header = document.querySelector(".survey-list-header > h2");
-  header.innerText = `Response List > Survey: ${surveyId}`;
+  header.innerText = `Response-List > Survey: ${surveyId}`;
 
-
-  // const responseCardsDB = await fetchAllResponses();
-  const responseCardsDB = await fetchAllResponsesBySurveyId(surveyId);
-  const  responseCards = converter(responseCardsDB);
-
+  const responseCards = converter(responseCardsDB);
   createElement(responseCards, cardsContainer);
 
-  const responseCardsList = document.querySelectorAll(".survey-card");
+  addResponseCardListeners(responseCardsDB);
+}
+
+async function allResponseListInit(div) {
+  const responseCardsDB = await fetchAllResponses();
+  const groupedResponses = Object.groupBy(responseCardsDB, ({ surveyId }) => surveyId);
+
+  const groupedResponsesEntries = Object.entries(groupedResponses);
+  console.log(groupedResponsesEntries);
+  groupedResponsesEntries.forEach(([surveyId, responses]) => {
+    const elem = createElement(responseListContainer, div);
+    const cardsContainer = elem[0].querySelector(".survey-cards");
+    const header = elem[0].querySelector(".survey-list-header > h2");
+    header.innerText = `Survey: ${surveyId}`;
+
+    const responseCards = converter(responses);
+    createElement(responseCards, cardsContainer);
+
+    addResponseCardListeners(responses, elem[0]);
+  });
+}
+
+function addResponseCardListeners(responseCardsDB, container = document) {
+  const responseCardsList = container.querySelectorAll(".survey-card");
   responseCardsList.forEach((responseCard, index) => {
     responseCard.addEventListener("click", async () => {
-      console.log("id : " + responseCardsDB[index].id);
-      const response = await fetchSurveyById(responseCardsDB[index].id);
-      navigateTo(`admin/response?id=${responseCardsDB[index].id}&surveyId=${responseCardsDB[index].surveyId}`)
-    });
-   
-  });
+      const responseData = responseCardsDB[index];
+      console.log("id: " + responseData.id);
 
+      const response = await fetchSurveyById(responseData.id);
+      navigateTo(`admin/response?id=${responseData.id}&surveyId=${responseData.surveyId}`);
+    });
+  });
 }
+
 
 async function fetchAllResponses() {
   const apiuri = `http://${serverIp}:8080/responses`;
@@ -47,7 +82,7 @@ function converter(responseList) {
   return responseList.map((response) => {
     return {
       tag: "div",
-      class: "survey-card",
+      class: "survey-card response-card",
       children: [
         {
           tag: "h3",
@@ -59,7 +94,7 @@ function converter(responseList) {
         },
         activeRes(),
       ],
-    }
+    };
   });
 }
 
@@ -81,7 +116,6 @@ function activeRes() {
     ],
   };
 }
-
 
 async function fetchSurveyById(id) {
   const apiuri = `http://${serverIp}:8080/responses/${id}`;
