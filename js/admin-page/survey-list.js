@@ -8,6 +8,7 @@ export async function surveyListInit(div) {
   const cardsContainer = document.querySelector(".survey-cards");
 
   const surveyCardsDB = await fetchSurveyCard();
+  console.log(surveyCardsDB);
 
   const surveyCards = converter(surveyCardsDB);
 
@@ -44,6 +45,14 @@ export async function surveyListInit(div) {
       });
     })
   });
+
+  //active status event listener
+  // document.querySelectorAll("div.survey-cards > div > div.active > label > input[type=checkbox]")
+  // .forEach((activeButton,index) => {
+  //   activeButton.addEventListener('change',() => {
+      
+  //   })
+  // })
 
   // adding event listener to the survey cards
   const previews = document.querySelectorAll(
@@ -85,17 +94,36 @@ async function deleteSurvey(surveyId) {
     method: "DELETE",
   };
   await fetch(apiuri, requestOptions)
-    .then((response) => {
+    .then(async (response) => {
       if (response.ok) {
         swal("Survey Deleted", "Its respective responses also deleted", "success")
+        await deleteResponseBySurveyId(surveyId)
       } else {
         throw new Error("Something went wrong");
       }
     })
-    .catch((error) => {
+    .catch(() => {
       swal("Error", "An error occurred while deleting the survey", "error");
     });
 }
+
+
+async function deleteResponseBySurveyId(surveyId) {
+  const apiuri = `http://localhost:8080/responses/survey/${surveyId}`
+  const responseOptions = {
+    method : "DELETE",
+  }
+  await fetch(apiuri, responseOptions)
+  .then((response) => {
+    if(!response.ok) {
+      throw new Error(`Error occurred while deleting the response of surveyId: ${surveyId}`)
+    }
+
+  })
+  .catch((error) => {
+    swal("Error", `Error occurred while deleting the response of surveyId: ${surveyId}`, "error");
+  })
+} 
 
 //fectching survey card
 async function fetchSurveyCard() {
@@ -124,14 +152,15 @@ function converter(surveyList) {
           class: "truncate-text",
           text: survey.description,
         },
-        active(),
+        active(survey.active),
       ],
     };
   });
 }
 
 // active status for each question survey page (helper)
-function active() {
+function active(isActive = false) {
+
   return {
     tag: "div",
     class: "active",
@@ -162,6 +191,7 @@ function active() {
           {
             tag: "input",
             type: "checkbox",
+            ...(isActive && {checked: true}),
           },
           {
             tag: "p",
@@ -176,8 +206,8 @@ function active() {
 
 // fetching the survey with id
 async function fetchSurveyById(id) {
-  const apiuri = "";
-  const data  = await fetch(`http://${serverIp}:8080/survey/${id}`);
+  const apiuri = `http://${serverIp}:8080/survey/${id}`;
+  const data  = await fetch(apiuri);
   const response = await data.json();
   return response;
 }

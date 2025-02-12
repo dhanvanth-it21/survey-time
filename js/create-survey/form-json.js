@@ -34,6 +34,7 @@ function convert() {
   //setting title and description
   survey.title = formTitle.value;
   survey.description = formDescription.value === "" ? "---" : formDescription.value;
+  survey.active = true;
 
   //now selecting the questions
   const questionsContainers = document.querySelectorAll(".question-container");

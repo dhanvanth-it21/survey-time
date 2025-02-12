@@ -8,28 +8,6 @@ export async function responseListInit(div, surveyId) {
       ? await allResponseListInit(div)
       : await allResponseListBySurveyIdInit(div, surveyId);
 
-  // Event listener for delete button
-  // document
-  //   .querySelectorAll("div.survey-cards > div > div > button.delete")
-  //   .forEach((deleteButton, index) => {
-  //     deleteButton.addEventListener("click", (event) => {
-  //       event.stopPropagation();
-  //       // const surveyId = responseCardsDB[index].surveyId;
-  //       const email = responseCardsDB[index].email;
-  //       const responseId = responseCardsDB[index].id;
-  //       swal({
-  //         title: "Are you sure?",
-  //         text: `Survey : ${surveyId}, Response of: ${email}`,
-  //         icon: "warning",
-  //         buttons: true,
-  //         dangerMode: true,
-  //       }).then(async (ok) => {
-  //         if (ok) {
-  //           await deleteSurvey(responseId);
-  //         } 
-  //       });
-  //     });
-  //   });
 }
 
 
@@ -107,9 +85,9 @@ async function allResponseListInit(div) {
     .forEach((deleteButton, index) => {
       deleteButton.addEventListener("click", (event) => {
         event.stopPropagation();
-        // const surveyId = responseCardsDB[index].surveyId;
-        const email = responseCardsDB[index].email;
-        const responseId = responseCardsDB[index].id;
+        const surveyId = responses[index].surveyId;
+        const email = responses[index].email;
+        const responseId = responses[index].id;
         swal({
           title: "Are you sure?",
           text: `Survey : ${surveyId}, Response of: ${email}`,

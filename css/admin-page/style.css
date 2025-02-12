@@ -7,6 +7,8 @@
 
 body {
   background-color: #fff6da;
+  height: 100%;
+  overflow: hidden;
 }
 
 button {
@@ -120,10 +122,19 @@ nav {
 
 /* --------------------------------------------sidebar css start-------------------------------------------- */
 
+/* body-container-start */
+.body-container {
+  display: flex;
+  gap: 20px;
+  height: 100vh;
+  /* overflow: visible; */
+}
+/* body-container-end */
+
+
 .sidebar {
   width: 200px;
-  /* height: calc(100vh - 68px); */
-  height: 100vh;
+  height: calc(100% - 68px);
   display: flex;
   flex-direction: column;
   background-color: #fff0c1;
@@ -162,16 +173,12 @@ nav {
 
 .page {
   flex: 1;
+  height: calc(100% - 68px);
+  overflow-y: scroll;
 }
 
 /* --------------------------------------------sidebar css end-------------------------------------------- */
 
-/* body-container-start */
-.body-container {
-  display: flex;
-  gap: 20px;
-}
-/* body-container-end */
 
 /* survey list start */
 .survey-list-container {
@@ -328,6 +335,3 @@ nav {
   text-overflow: ellipsis;
 }
 
-.page {
-  overflow: hidden;
-}
