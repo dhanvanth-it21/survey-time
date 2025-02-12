@@ -76,6 +76,7 @@ function loadLoginPage() {
 
   document.getElementById("admin-button").addEventListener("click", () => {
     navigateTo("admin");
+    
   });
 
   document.getElementById("user-button").addEventListener("click", () => {

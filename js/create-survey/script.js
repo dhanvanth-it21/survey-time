@@ -4,7 +4,6 @@ import { convertToJson } from "./form-json.js";
 import { completeValidation, singleQCValidation } from "./validator.js";
 import { navigateTo, serverIp } from "../../script.js";
 
-
 export function createSurveyInit() {
   navBarInit(); //nav bar creation
   headingInit(); //form heading creation
@@ -16,17 +15,34 @@ export function createSurveyInit() {
     if (completeValidation()) {
       const json = convertToJson();
       postSurvey(json);
+      navigateTo("admin");
       swal(
-        "Survey Published",
-        "Your survey has been published successfully!",
+        "Survey Created",
+        "This Survey is now available for users to take",
         "success"
       );
-      navigateTo("admin");
     }
   });
   // adding event listener to validate
   const validate = document.querySelector(".top-validate");
   validate.addEventListener("click", () => completeValidation());
+
+  // adding event listener to discard button
+  const discard = document.querySelector(".discard");
+  discard.addEventListener("click", () => {
+    swal({
+      title: "Are you sure?",
+      text: "On discarding current survey will be lost",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((ok) => {
+      if (ok) {
+        navigateTo("admin");
+        swal("Survey Discarded", "Redirected to Survey-List", "success");
+      }
+    });
+  });
 }
 
 function postSurvey(json) {

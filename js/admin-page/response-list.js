@@ -3,18 +3,51 @@ import { createElement } from "../generator.js";
 import { responseListContainer, responseCards } from "./data.js";
 
 export async function responseListInit(div, surveyId) {
-  const responseCardsDB = surveyId === "All"
-    ? await allResponseListInit(div)
-    : await allResponseListBySurveyIdInit(div, surveyId);
+  const responseCardsDB =
+    surveyId === "All"
+      ? await allResponseListInit(div)
+      : await allResponseListBySurveyIdInit(div, surveyId);
 
   // Event listener for delete button
-  document.querySelectorAll("div.survey-cards > div > div > button.delete")
-    .forEach((deleteButton) => {
-      deleteButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-      
-      });
-    });
+  // document
+  //   .querySelectorAll("div.survey-cards > div > div > button.delete")
+  //   .forEach((deleteButton, index) => {
+  //     deleteButton.addEventListener("click", (event) => {
+  //       event.stopPropagation();
+  //       // const surveyId = responseCardsDB[index].surveyId;
+  //       const email = responseCardsDB[index].email;
+  //       const responseId = responseCardsDB[index].id;
+  //       swal({
+  //         title: "Are you sure?",
+  //         text: `Survey : ${surveyId}, Response of: ${email}`,
+  //         icon: "warning",
+  //         buttons: true,
+  //         dangerMode: true,
+  //       }).then(async (ok) => {
+  //         if (ok) {
+  //           await deleteSurvey(responseId);
+  //         } 
+  //       });
+  //     });
+  //   });
+}
+
+
+async function deleteSurvey(responseId) {
+  const apiuri = `http://${serverIp}:8080/responses/${responseId}`;
+  const responseOptions = {
+    method: "DELETE",
+  }
+  await fetch(apiuri, responseOptions)
+  .then( (response) => {
+    if(response.ok) {
+      swal("Respone Deleted", "", "success")
+    }
+    else throw new Error("Error deleting response");
+  })
+  .catch((error) => {
+    console.error("Error : ", error);
+  })
 }
 
 async function allResponseListBySurveyIdInit(div, surveyId) {
@@ -27,13 +60,37 @@ async function allResponseListBySurveyIdInit(div, surveyId) {
 
   const responseCards = converter(responseCardsDB);
   createElement(responseCards, cardsContainer);
+  document
+    .querySelectorAll("div.survey-cards > div > div > button.delete")
+    .forEach((deleteButton, index) => {
+      deleteButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const surveyId = responseCardsDB[index].surveyId;
+        const email = responseCardsDB[index].email;
+        const responseId = responseCardsDB[index].id;
+        swal({
+          title: "Are you sure?",
+          text: `Survey : ${surveyId}, Response of: ${email}`,
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then(async (ok) => {
+          if (ok) {
+            await deleteSurvey(responseId);
+          } 
+        });
+      });
+    });
 
   addResponseCardListeners(responseCardsDB);
 }
 
 async function allResponseListInit(div) {
   const responseCardsDB = await fetchAllResponses();
-  const groupedResponses = Object.groupBy(responseCardsDB, ({ surveyId }) => surveyId);
+  const groupedResponses = Object.groupBy(
+    responseCardsDB,
+    ({ surveyId }) => surveyId
+  );
 
   const groupedResponsesEntries = Object.entries(groupedResponses);
   console.log(groupedResponsesEntries);
@@ -46,6 +103,26 @@ async function allResponseListInit(div) {
     const responseCards = converter(responses);
     createElement(responseCards, cardsContainer);
 
+    elem[0].querySelectorAll("div.survey-cards > div > div > button.delete")
+    .forEach((deleteButton, index) => {
+      deleteButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        // const surveyId = responseCardsDB[index].surveyId;
+        const email = responseCardsDB[index].email;
+        const responseId = responseCardsDB[index].id;
+        swal({
+          title: "Are you sure?",
+          text: `Survey : ${surveyId}, Response of: ${email}`,
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then(async (ok) => {
+          if (ok) {
+            await deleteSurvey(responseId);
+          } 
+        });
+      });
+    });
     addResponseCardListeners(responses, elem[0]);
   });
 }
@@ -58,14 +135,15 @@ function addResponseCardListeners(responseCardsDB, container = document) {
       console.log("id: " + responseData.id);
 
       const response = await fetchSurveyById(responseData.id);
-      navigateTo(`admin/response?id=${responseData.id}&surveyId=${responseData.surveyId}`);
+      navigateTo(
+        `admin/response?id=${responseData.id}&surveyId=${responseData.surveyId}`
+      );
     });
   });
 }
 
-
 async function fetchAllResponses() {
-  const apiuri = `http://${serverIp}:8080/responses`;
+  const apiuri = `http://${serverIp}:8080/responses/response-cards `;
   const response = await fetch(apiuri);
   const data = await response.json();
   return data;

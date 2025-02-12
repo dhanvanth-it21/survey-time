@@ -25,9 +25,23 @@ export async function surveyListInit(div) {
 
   //event listener for delete button
   document.querySelectorAll("div.survey-cards > div > div > button.delete")
-  .forEach((deleteButton) => {
+  .forEach((deleteButton, index) => {
     deleteButton.addEventListener("click", (event) => {
       event.stopPropagation();
+      const title = surveyCardsDB[index].title;
+      const surveyId = surveyCardsDB[index].id;
+      swal({
+        title: "Are you sure?",
+        text: `Survey : ${title}.
+        On deleting the survey, all the responses will be lost`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then(async (ok) => {
+        if (ok) {
+          await deleteSurvey(surveyId);
+        } 
+      });
     })
   });
 
@@ -64,6 +78,24 @@ export async function surveyListInit(div) {
 
 }
 
+
+async function deleteSurvey(surveyId) {
+  const apiuri = `http://${serverIp}:8080/survey/${surveyId}`;
+  const requestOptions = {
+    method: "DELETE",
+  };
+  await fetch(apiuri, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        swal("Survey Deleted", "Its respective responses also deleted", "success")
+      } else {
+        throw new Error("Something went wrong");
+      }
+    })
+    .catch((error) => {
+      swal("Error", "An error occurred while deleting the survey", "error");
+    });
+}
 
 //fectching survey card
 async function fetchSurveyCard() {
