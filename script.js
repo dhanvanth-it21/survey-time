@@ -15,8 +15,8 @@ window.addEventListener("popstate", () => {
 });
 
 // Function to navigate to a page by changing the URL and loading the content
-export function navigateTo(page, needHistory = true) {
-  if (window.location.pathname.replace("/", "") === page) return;
+export function navigateTo(page, needHistory = true, forceLoad = false) {
+  if (!forceLoad && window.location.pathname.replace("/", "") === page) return;
   if (needHistory) {
     history.pushState({ page }, "", `/${page}`);
   } else {

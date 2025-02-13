@@ -12,14 +12,23 @@ export function createSurveyInit() {
   // validation part for qeustion container and the form heading
   const create = document.querySelector(".create");
   create.addEventListener("click", () => {
-    if (completeValidation()) {
+    const isCompletlyValidated = completeValidation();
+    if (isCompletlyValidated) {
       const json = convertToJson();
       postSurvey(json);
-      navigateTo("admin");
       swal(
         "Survey Created",
         "This Survey is now available for users to take",
         "success"
+      ).then(() => {
+        navigateTo("admin");
+      });
+    }
+    else {
+      swal(
+        "Please meet the question constrains",
+        "Please Check at warning signs",
+        "warning"
       );
     }
   });

@@ -15,7 +15,7 @@ import {
   numberRange,
   fileImage,
 } from "./data.js";
-import { sideMenuEventListener } from "./sidemenu.js";
+import { sideMenuEventListener, sideMenuPosition } from "./sidemenu.js";
 import { singleQCValidation } from "./validator.js";
 
 // creating the question container which is triggered by add-question by the side menu
@@ -44,18 +44,33 @@ export function deleteQuestionContainerFun() {
   const activeBox = document.querySelector(".active-box");
   if (!activeBox) return;
   if (document.querySelector(".form-heading") === activeBox) return;
-  const alternateActiveBox = (function (activeBox) {
-    if (activeBox.nextElementSibling) {
-      return activeBox.nextElementSibling;
+  swal({
+    title: "Are you sure?",
+    text: `Do  you want to delete the selected question.`,
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((ok) => {
+    if(ok) {
+      const alternateActiveBox = (function (activeBox) {
+        if (activeBox.nextElementSibling) {
+          return activeBox.nextElementSibling;
+        }
+        if (activeBox.previousElementSibling) {
+          return activeBox.previousElementSibling;
+        } else {
+          return document.querySelector(".form-heading");
+        }
+      })(activeBox);
+      activeBox.remove();
+      alternateActiveBox.classList.add("active-box");
+      sideMenuPosition(alternateActiveBox);
     }
-    if (activeBox.previousElementSibling) {
-      return activeBox.previousElementSibling;
-    } else {
-      return document.querySelector(".form-heading");
-    }
-  })(activeBox);
-  activeBox.remove();
-  alternateActiveBox.classList.add("active-box");
+  })
+  .catch((error) => {
+    console.error(`Error : ${error}`);
+  })
 }
 
 //question type option list creation

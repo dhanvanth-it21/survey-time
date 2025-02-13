@@ -41,8 +41,13 @@ export async function surveyListInit(div) {
       }).then(async (ok) => {
         if (ok) {
           await deleteSurvey(surveyId);
+          deleteButton.closest(".survey-card").remove();
         } 
-      });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      ;
     })
   });
 

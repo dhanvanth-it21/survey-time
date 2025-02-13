@@ -54,7 +54,13 @@ async function allResponseListBySurveyIdInit(div, surveyId) {
           dangerMode: true,
         }).then(async (ok) => {
           if (ok) {
-            await deleteSurvey(responseId);
+            await deleteSurvey(responseId)
+            .then(() => {
+              deleteButton.closest(".survey-card").remove();
+              })
+              .catch((error) => {
+              console.error("Error: ", error);
+              });
           } 
         });
       });
@@ -96,7 +102,13 @@ async function allResponseListInit(div) {
           dangerMode: true,
         }).then(async (ok) => {
           if (ok) {
-            await deleteSurvey(responseId);
+            await deleteSurvey(responseId)
+              .then(() => {
+              deleteButton.closest(".survey-card").remove();
+              })
+              .catch((error) => {
+              console.error("Error: ", error);
+              });
           } 
         });
       });

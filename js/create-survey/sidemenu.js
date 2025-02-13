@@ -23,11 +23,11 @@ export const sideMenuInit = () => {
   const deleteQuestion = document.querySelector(".delete-question");
   deleteQuestion.addEventListener("click", () => {
     deleteQuestionContainerFun();
+    // sideMenuPosition(document.querySelector(".active-box"));
   });
   //handling the active-box after deleting a question container
-  deleteQuestion.addEventListener("click", () => {
-    sideMenuPosition(document.querySelector(".active-box"));
-  });
+  // deleteQuestion.addEventListener("click", () => {
+  // });
 };
 
 
@@ -46,7 +46,7 @@ export function sideMenuEventListener(div) {
 
 
 //positioning the sidemenu to the active-box 
-function sideMenuPosition(div) {
+export function sideMenuPosition(div) {
   //side-menu positioning
   const rect = div.getBoundingClientRect();
   const sideMenu = document.querySelector(".side-menu");
