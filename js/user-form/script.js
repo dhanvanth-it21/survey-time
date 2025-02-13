@@ -2,14 +2,14 @@ import { createElement } from "../generator.js";
 import { userJsonConverter } from "./user-json-converter.js";
 import { survey, navBar } from "./data.js";
 import { isFormValid } from "./user-validation.js";
-import { serverIp } from "../../script.js";
+import { navigateTo, serverIp } from "../../script.js";
 
 export async function userFormInit(id, name, email) {
   //initializing the navBar
 
   createElement(navBar, document.body);
 
-  const survey  = await  fetchSurveyCard(id);
+  const survey = await fetchSurveyCard(id);
   userPage(survey.surveyObject);
 
   //user page
@@ -28,7 +28,8 @@ export async function userFormInit(id, name, email) {
       surveyId: id,
     };
     //checking for the validation error are persent and return the error message
-    if (isFormValid()) {
+    const isFormValidated = isFormValid();
+    if (isFormValidated) {
       const formData = new FormData(document.querySelector("form"));
       const responseObject = {};
       formData.forEach((value, key) => {
@@ -47,45 +48,42 @@ export async function userFormInit(id, name, email) {
       finalResponse["responseObject"] = responseObject;
       console.log(finalResponse);
       postResponse(finalResponse);
+      swal("Response Submited", "Your response has been recoreded", "success")
+      .then(() => navigateTo("user"));
     }
   });
 }
 
-
-
-export async  function AdminPreviewInit(id) {
+export async function AdminPreviewInit(id) {
   createElement(navBar, document.body);
 
   const submit = document.querySelector(".submit");
   submit.style.display = "none";
 
-  const survey  = await  fetchSurveyCard(id);
+  const survey = await fetchSurveyCard(id);
   userPage(survey.surveyObject);
 
   //user page
   function userPage(survey) {
     createElement(userJsonConverter(survey), document.body);
     const inputList = document.querySelectorAll("input");
-    inputList.forEach(input => {
+    inputList.forEach((input) => {
       input.disabled = true;
-    })
+    });
     const textAreaList = document.querySelectorAll("textarea");
-    textAreaList.forEach(textarea => {
+    textAreaList.forEach((textarea) => {
       textarea.disabled = true;
-    })
+    });
   }
-
-  
 }
 
-
-export async  function AdminResponseInit(id, surveyId) {
+export async function AdminResponseInit(id, surveyId) {
   createElement(navBar, document.body);
 
   const submit = document.querySelector(".submit");
   submit.style.display = "none";
 
-  const survey  = (await  fetchSurveyCard(surveyId)).surveyObject;
+  const survey = (await fetchSurveyCard(surveyId)).surveyObject;
   console.log(survey);
 
   //fetching the response
@@ -93,7 +91,6 @@ export async  function AdminResponseInit(id, surveyId) {
   console.log(response);
 
   //mark the response
-  
 
   userPage(survey, response);
 
@@ -101,29 +98,21 @@ export async  function AdminResponseInit(id, surveyId) {
   function userPage(survey, response) {
     createElement(userJsonConverter(survey, response), document.body);
     const inputList = document.querySelectorAll("input");
-    inputList.forEach(input => {
+    inputList.forEach((input) => {
       input.disabled = true;
-    })
+    });
     const textAreaList = document.querySelectorAll("textarea");
-    textAreaList.forEach(textarea => {
+    textAreaList.forEach((textarea) => {
       textarea.disabled = true;
-    })
+    });
     const selectList = document.querySelectorAll("select");
-    selectList.forEach(select => {
+    selectList.forEach((select) => {
       select.disabled = true;
     });
 
     markAnswer(response);
   }
-
-  
-
-  
-  
-
-  
 }
-
 
 function markAnswer(response) {
   //marking the response
@@ -198,13 +187,12 @@ function markAnswer(response) {
   });
 }
 
-
 async function fetchResponse(id) {
   const apiuri = `http://${serverIp}:8080/responses/${id}`;
 
   const response = await fetch(apiuri);
 
-  const data =  await response.json();
+  const data = await response.json();
   return data;
 }
 
@@ -213,7 +201,7 @@ async function fetchSurveyCard(id) {
 
   const response = await fetch(apiuri);
 
-  const data =  await response.json();
+  const data = await response.json();
   return data;
 }
 
@@ -225,7 +213,7 @@ function postResponse(response) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(response),
-  }
+  };
   fetch(apiuri, responseOptions)
     .then((response) => response.json())
     .then((data) => console.log(data))

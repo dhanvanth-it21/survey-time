@@ -12,9 +12,6 @@ export function sideBarInit(div) {
         navigateTo('admin/survey-list', false);
     });
     responseList.addEventListener('click', () => {
-        // const page = document.querySelector('.page');
-        // page.innerHTML = '';
-        // responseListInit(page);
         navigateTo('admin/response-list?surveyId=All', false);
     });
 }
