@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Open Sans", serif;
 }
 
 body {
@@ -52,7 +56,7 @@ nav {
 
 .nav-title h1 {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 800;
   line-height: 24px;
   color: rgb(0, 0, 0);
   padding: 0.125em 0;

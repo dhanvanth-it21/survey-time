@@ -34,7 +34,7 @@ async function allResponseListBySurveyIdInit(div, surveyId) {
   const cardsContainer = document.querySelector(".survey-cards");
 
   const header = document.querySelector(".survey-list-header > h2");
-  header.innerText = `Response-List > Survey: ${surveyId}`;
+  header.innerText = `Response-List > Response of: ${responseCardsDB[0].surveyTitle}`;
 
   const responseCards = converter(responseCardsDB);
   createElement(responseCards, cardsContainer);
@@ -82,7 +82,7 @@ async function allResponseListInit(div) {
     const elem = createElement(responseListContainer, div);
     const cardsContainer = elem[0].querySelector(".survey-cards");
     const header = elem[0].querySelector(".survey-list-header > h2");
-    header.innerText = `Survey: ${surveyId}`;
+    header.innerText = `Response of: ${responses[0].surveyTitle}`;
 
     const responseCards = converter(responses);
     createElement(responseCards, cardsContainer);

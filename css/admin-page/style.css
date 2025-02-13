@@ -1,8 +1,8 @@
-* {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Open Sans", serif;
 }
 
 body {
@@ -55,7 +55,7 @@ nav {
 
 .nav-title h1 {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 800;
   line-height: 24px;
   color: rgb(0, 0, 0);
   padding: 0.125em 0;
@@ -98,7 +98,6 @@ nav {
   color: #ffffff;
   background-color: #a94a4a;
   padding: 0 24px;
-  font-family: Roboto, Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.25px;
@@ -152,13 +151,13 @@ nav {
 
 .profile-info h2 {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 800;
   color: #000;
   margin-bottom: 0.25em;
 }
 
 .profile-info p {
-  font-size: 0.875rem;
+  font-size: 0.6rem;
   color: #555;
 }
 
@@ -188,7 +187,7 @@ nav {
 
 .survey-list-header h2 {
   font-size: 1.75rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #000;
   margin-bottom: 20px;
   text-decoration: underline;
@@ -222,13 +221,13 @@ nav {
 
 .survey-card h3 {
   font-size: 1.25rem;
-  font-weight: 6 00;
+  font-weight: 700;
   color: #a94a4a;
   margin-bottom: 10px;
 }
 
 .survey-card p {
-  font-size: 1rem;
+  font-size: 0.6rem;
   color: #5d5d5d;
 }
 /* survey list end */
@@ -239,7 +238,7 @@ nav {
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 0.3rem;
   width: 100%;
   margin-top: 10px;
