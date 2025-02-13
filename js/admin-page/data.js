@@ -135,6 +135,27 @@ export const surveyListContainer = [
         class: "survey-cards",
         children: [],
       },
+      {
+        tag: "div",
+        class: "pagination",
+        children: [
+          {
+            tag: "button",
+            class: "prev button",
+            text: "Prev",
+          },
+          {
+            tag: "span",
+            class: "current-page",
+            text: "1",
+          },
+          {
+            tag: "button",
+            class: "next button",
+            text: "Next",
+          },
+        ],
+      }
     ],
   },
 ];

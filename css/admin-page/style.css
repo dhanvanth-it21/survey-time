@@ -334,3 +334,22 @@ nav {
   text-overflow: ellipsis;
 }
 
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  position: fixed;
+  top: 80vh;
+  left: 50%;
+}
+
+
+
+.pagination .current-page {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+}

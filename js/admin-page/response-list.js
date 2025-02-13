@@ -34,7 +34,7 @@ async function allResponseListBySurveyIdInit(div, surveyId) {
   const cardsContainer = document.querySelector(".survey-cards");
 
   const header = document.querySelector(".survey-list-header > h2");
-  header.innerText = `Response-List > Response of: ${responseCardsDB[0].surveyTitle}`;
+  header.innerText = `Response-List > Response of: ${responseCardsDB.length > 0 ? responseCardsDB[0].surveyTitle : "No Responses"}`;
 
   const responseCards = converter(responseCardsDB);
   createElement(responseCards, cardsContainer);
