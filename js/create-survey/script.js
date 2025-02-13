@@ -54,26 +54,23 @@ export function createSurveyInit() {
   });
 }
 
-function postSurvey(json) {
+async function postSurvey(json) {
   const apiuri = `http://${serverIp}:8080/survey`;
   const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      surveyObject: json,
-    }),
+    body: JSON.stringify({surveyObject: json}),
   };
 
-  fetch(apiuri, requestOptions)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  const response = await fetch(apiuri, requestOptions)
+  if (response.ok) {
+    const data = await response.json();
+    console.log("Survey Created:", data);
+} else {
+    const error = await response.text();
+    console.error("Error:", error);
+}
+
 }

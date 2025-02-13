@@ -192,8 +192,14 @@ async function fetchResponse(id) {
 
   const response = await fetch(apiuri);
 
-  const data = await response.json();
-  return data;
+  if(response.ok) {
+    const data = await response.json();
+    return data;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 }
 
 async function fetchSurveyCard(id) {
@@ -201,8 +207,14 @@ async function fetchSurveyCard(id) {
 
   const response = await fetch(apiuri);
 
-  const data = await response.json();
-  return data;
+  if(response.ok) {
+    const data = await response.json();
+    return data;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 }
 
 function postResponse(response) {

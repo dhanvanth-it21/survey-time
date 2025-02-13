@@ -135,15 +135,27 @@ function addResponseCardListeners(responseCardsDB, container = document) {
 async function fetchAllResponses() {
   const apiuri = `http://${serverIp}:8080/responses/response-cards `;
   const response = await fetch(apiuri);
-  const data = await response.json();
-  return data;
+  if(response.ok) {
+    const data = await response.json();
+    return data;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 }
 
 async function fetchAllResponsesBySurveyId(surveyId) {
   const apiuri = `http://${serverIp}:8080/responses/survey/${surveyId}`;
   const response = await fetch(apiuri);
-  const data = await response.json();
-  return data;
+  if(response.ok) {
+    const data = await response.json();
+    return data;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 }
 
 function converter(responseList) {
@@ -190,7 +202,12 @@ async function fetchSurveyById(id) {
 
   const response = await fetch(apiuri);
 
-  const data = await response.json();
-
-  return data;
+  if(response.ok) {
+    const data = await response.json();
+    return data;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 }

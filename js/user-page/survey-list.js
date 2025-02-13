@@ -35,8 +35,14 @@ async function fetchPendingSurveyCards(emailId) {
   const apiuri = `http://${serverIp}:8080/survey/survey-cards/${emailId}`;
   
   const response = await fetch(apiuri);
-  const data = await response.json();
-  return data;
+  if(response.ok) {
+    const data = await response.json();
+    return data;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 }
 
 
@@ -44,10 +50,14 @@ async function fetchSurveyCard() {
   const apiuri = `http://${serverIp}:8080/survey/survey-cards`;
 
   const response = await fetch(apiuri);
-
-  const data =  await response.json();
-
-  return data;
+  if(response.ok) {
+    const data = await response.json();
+    return data;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 }
 
 

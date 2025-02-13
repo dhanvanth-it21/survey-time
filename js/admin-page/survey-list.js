@@ -96,9 +96,13 @@ export async function surveyListInit(div) {
     const responseOptions = {
       method: "PUT",
     };
-    await fetch(apiuri, responseOptions).catch((error) => {
-      console.error(`Error : ${error}`);
-    });
+    const response = await fetch(apiuri, responseOptions);
+    const messsage = await response.text();
+    if (response.ok) {
+      console.log(messsage);
+    } else {
+      console.error("Error: ", messsage);
+    }
   }
 
   // adding event listener to the survey cards
@@ -179,9 +183,15 @@ async function fetchSurveyCard() {
 
   const response = await fetch(apiuri);
 
-  const data = await response.json();
+  if(response.ok) {
+    const data = await response.json();
+    return data.content;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 
-  return data;
 }
 
 // survey card json converter
@@ -253,7 +263,13 @@ function active(isActive = false) {
 // fetching the survey with id
 async function fetchSurveyById(id) {
   const apiuri = `http://${serverIp}:8080/survey/${id}`;
-  const data = await fetch(apiuri);
-  const response = await data.json();
-  return response;
+  const response = await fetch(apiuri);
+  if(response.ok) {
+    const data = await response.json();
+    return data;
+  }
+  else {
+    const error = await response.text();
+    console.error("Error:", error);
+  }
 }
