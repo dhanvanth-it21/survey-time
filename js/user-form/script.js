@@ -46,7 +46,6 @@ export async function userFormInit(id, name, email) {
         }
       });
       finalResponse["responseObject"] = responseObject;
-      console.log(finalResponse);
       postResponse(finalResponse);
       swal("Response Submited", "Your response has been recoreded", "success")
       .then(() => navigateTo("user"));
@@ -84,11 +83,9 @@ export async function AdminResponseInit(id, surveyId) {
   submit.style.display = "none";
 
   const survey = (await fetchSurveyCard(surveyId)).surveyObject;
-  console.log(survey);
 
   //fetching the response
   const response = (await fetchResponse(id)).responseObject;
-  console.log(response);
 
   //mark the response
 
@@ -188,7 +185,7 @@ function markAnswer(response) {
 }
 
 async function fetchResponse(id) {
-  const apiuri = `http://${serverIp}:8080/responses/${id}`;
+  const apiuri = `http://${serverIp}/responses/${id}`;
 
   const response = await fetch(apiuri);
 
@@ -203,7 +200,7 @@ async function fetchResponse(id) {
 }
 
 async function fetchSurveyCard(id) {
-  const apiuri = `http://${serverIp}:8080/survey/${id}`;
+  const apiuri = `http://${serverIp}/survey/${id}`;
 
   const response = await fetch(apiuri);
 
@@ -218,7 +215,7 @@ async function fetchSurveyCard(id) {
 }
 
 function postResponse(response) {
-  const apiuri = `http://${serverIp}:8080/responses`;
+  const apiuri = `http://${serverIp}/responses`;
   const responseOptions = {
     method: "POST",
     headers: {
@@ -228,6 +225,5 @@ function postResponse(response) {
   };
   fetch(apiuri, responseOptions)
     .then((response) => response.json())
-    .then((data) => console.log(data))
     .catch((error) => console.error("Error:", error));
 }

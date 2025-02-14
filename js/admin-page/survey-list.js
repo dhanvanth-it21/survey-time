@@ -42,17 +42,7 @@ export async function surveyListInit(div) {
     return response ? response.totalPages : 1;
   }
 
-  async function fetchSurveyCard(page, size) {
-    const apiuri = `http://${serverIp}:8080/survey/survey-cards?page=${page}&size=${size}`;
-    try {
-      const response = await fetch(apiuri);
-      if (!response.ok) throw new Error(await response.text());
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching survey cards:", error);
-      return null;
-    }
-  }
+
 
   function addEventListeners(surveyCardsDB) {
     // event listener for active status
@@ -89,7 +79,7 @@ export async function surveyListInit(div) {
               }
             })
             .catch((error) => {
-              console.log(error);
+              console.error(error);
             });
         });
       });
@@ -134,10 +124,7 @@ export async function surveyListInit(div) {
     previews.forEach((preview, index) => {
       preview.addEventListener("click", async (event) => {
         event.stopPropagation();
-        console.log("id : " + surveyCardsDB[index].id);
         const survey = await fetchSurveyById(surveyCardsDB[index].id);
-        console.log(survey.surveyObject);
-        // const surveyJson = userJsonConverter(survey.surveyObject);
         navigateTo(`admin/survey?id=${surveyCardsDB[index].id}`);
       });
     });
@@ -158,22 +145,20 @@ export async function surveyListInit(div) {
   }
 
   async function updateActiveStatus(surveyId) {
-    const apiuri = `http://${serverIp}:8080/survey/active-status/${surveyId}`;
+    const apiuri = `http://${serverIp}/survey/active-status/${surveyId}`;
     const responseOptions = {
       method: "PUT",
     };
     const response = await fetch(apiuri, responseOptions);
     const message = await response.text();
-    if (response.ok) {
-      console.log(message);
-    } else {
+    if (!response.ok) {
       console.error("Error: ", message);
     }
   }
 }
 
 async function deleteSurvey(surveyId) {
-  const apiuri = `http://${serverIp}:8080/survey/${surveyId}`;
+  const apiuri = `http://${serverIp}/survey/${surveyId}`;
   const requestOptions = {
     method: "DELETE",
   };
@@ -196,7 +181,7 @@ async function deleteSurvey(surveyId) {
 }
 
 async function deleteResponseBySurveyId(surveyId) {
-  const apiuri = `http://${serverIp}:8080/responses/survey/${surveyId}`;
+  const apiuri = `http://${serverIp}/responses/survey/${surveyId}`;
   const responseOptions = {
     method: "DELETE",
   };
@@ -219,7 +204,7 @@ async function deleteResponseBySurveyId(surveyId) {
 
 // fetching survey card
 async function fetchSurveyCard(page, size) {
-  const apiuri = `http://${serverIp}:8080/survey/survey-cards?page=${page}&size=${size}`;
+  const apiuri = `http://${serverIp}/survey/survey-cards?page=${page}&size=${size}`;
   const response = await fetch(apiuri);
   if (response.ok) {
     const data = await response.json();
@@ -298,7 +283,7 @@ function active(isActive = false) {
 
 // fetching the survey with id
 async function fetchSurveyById(id) {
-  const apiuri = `http://${serverIp}:8080/survey/${id}`;
+  const apiuri = `http://${serverIp}/survey/${id}`;
   const response = await fetch(apiuri);
   if (response.ok) {
     const data = await response.json();

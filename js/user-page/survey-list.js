@@ -7,7 +7,6 @@ export async function surveyListInit(div) {
   const cardsContainer = document.querySelector(".survey-cards");
 
   const emailId = getEmailId();
-  console.log(emailId);
 
   // const surveyCardsDB = await fetchSurveyCard();
 
@@ -32,7 +31,7 @@ export async function surveyListInit(div) {
 
 async function fetchPendingSurveyCards(emailId) {
 
-  const apiuri = `http://${serverIp}:8080/survey/survey-cards/${emailId}`;
+  const apiuri = `http://${serverIp}/survey/survey-cards/${emailId}`;
   
   const response = await fetch(apiuri);
   if(response.ok) {
@@ -47,7 +46,7 @@ async function fetchPendingSurveyCards(emailId) {
 
 
 async function fetchSurveyCard() {
-  const apiuri = `http://${serverIp}:8080/survey/survey-cards`;
+  const apiuri = `http://${serverIp}/survey/survey-cards`;
 
   const response = await fetch(apiuri);
   if(response.ok) {

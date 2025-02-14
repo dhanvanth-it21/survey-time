@@ -167,7 +167,6 @@ function convert() {
 // and return the json format
 export function convertToJson() {
   const survey = convert();
-  console.log(JSON.stringify(survey, null, 2));
   return survey;
 }
 

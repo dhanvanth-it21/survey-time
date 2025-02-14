@@ -55,7 +55,7 @@ export function createSurveyInit() {
 }
 
 async function postSurvey(json) {
-  const apiuri = `http://${serverIp}:8080/survey`;
+  const apiuri = `http://${serverIp}/survey`;
   const requestOptions = {
     method: "POST",
     headers: {
@@ -65,12 +65,8 @@ async function postSurvey(json) {
   };
 
   const response = await fetch(apiuri, requestOptions)
-  if (response.ok) {
-    const data = await response.json();
-    console.log("Survey Created:", data);
-} else {
+  if (!response.ok) {
     const error = await response.text();
     console.error("Error:", error);
 }
-
 }

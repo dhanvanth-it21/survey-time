@@ -12,7 +12,7 @@ export async function responseListInit(div, surveyId) {
 
 
 async function deleteSurvey(responseId) {
-  const apiuri = `http://${serverIp}:8080/responses/${responseId}`;
+  const apiuri = `http://${serverIp}/responses/${responseId}`;
   const responseOptions = {
     method: "DELETE",
   }
@@ -77,7 +77,6 @@ async function allResponseListInit(div) {
   );
 
   const groupedResponsesEntries = Object.entries(groupedResponses);
-  console.log(groupedResponsesEntries);
   groupedResponsesEntries.forEach(([surveyId, responses]) => {
     const elem = createElement(responseListContainer, div);
     const cardsContainer = elem[0].querySelector(".survey-cards");
@@ -122,7 +121,6 @@ function addResponseCardListeners(responseCardsDB, container = document) {
   responseCardsList.forEach((responseCard, index) => {
     responseCard.addEventListener("click", async () => {
       const responseData = responseCardsDB[index];
-      console.log("id: " + responseData.id);
 
       const response = await fetchSurveyById(responseData.id);
       navigateTo(
@@ -133,7 +131,7 @@ function addResponseCardListeners(responseCardsDB, container = document) {
 }
 
 async function fetchAllResponses() {
-  const apiuri = `http://${serverIp}:8080/responses/response-cards `;
+  const apiuri = `http://${serverIp}/responses/response-cards `;
   const response = await fetch(apiuri);
   if(response.ok) {
     const data = await response.json();
@@ -146,7 +144,7 @@ async function fetchAllResponses() {
 }
 
 async function fetchAllResponsesBySurveyId(surveyId) {
-  const apiuri = `http://${serverIp}:8080/responses/survey/${surveyId}`;
+  const apiuri = `http://${serverIp}/responses/survey/${surveyId}`;
   const response = await fetch(apiuri);
   if(response.ok) {
     const data = await response.json();
@@ -198,7 +196,7 @@ function activeRes() {
 }
 
 async function fetchSurveyById(id) {
-  const apiuri = `http://${serverIp}:8080/responses/${id}`;
+  const apiuri = `http://${serverIp}/responses/${id}`;
 
   const response = await fetch(apiuri);
 

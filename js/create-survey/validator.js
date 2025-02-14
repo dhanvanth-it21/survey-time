@@ -218,7 +218,6 @@ function questionTypeValidationMessage(questionTypeContainer) {
     }
 
     const imageSize = questionTypeContainer.querySelector("div.question-constrains > div.image-size > label > input");
-    console.log(imageSize.value, typeof(imageSize.value))
     if(!imageSize.value || imageSize.value === "0") errorMessage = "*Enter the image size";
     if(parseInt(imageSize.value) >= 25) errorMessage = "*Enter the image size less than 25 MB";
     return errorMessage;

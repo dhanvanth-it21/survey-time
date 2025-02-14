@@ -3,7 +3,7 @@ import { navBar, login } from "./data.js";
 import { surveyListInit } from "./js/admin-page/survey-list.js";
 import { responseListInit } from "./js/admin-page/response-list.js";
 
-export const serverIp = "localhost";
+export const serverIp = "localhost:8080";
 
 window.addEventListener("load", () => {
   handleRouteChange();
