@@ -12,6 +12,7 @@ export async function surveyListInit(div) {
   async function loadSurveys(page) {
     const pagesSurveyCardsDB = await fetchSurveyCard(page, size);
     if (!pagesSurveyCardsDB) return;
+
     currentPage = pagesSurveyCardsDB.number;
     document.querySelector(".current-page").textContent = currentPage + 1;
 
@@ -38,7 +39,7 @@ export async function surveyListInit(div) {
   });
 
   async function getTotalPages() {
-    const response = await fetchSurveyCard(0, 1);
+    const response = await fetchSurveyCard(0, 2);
     return response ? response.totalPages : 1;
   }
 
