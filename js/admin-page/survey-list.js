@@ -7,7 +7,7 @@ export async function surveyListInit(div) {
   createElement(surveyListContainer, div);
   const cardsContainer = document.querySelector(".survey-cards");
   let currentPage = 0;
-  const size = 2;
+  const size = 8;
 
   async function loadSurveys(page) {
     const pagesSurveyCardsDB = await fetchSurveyCard(page, size);

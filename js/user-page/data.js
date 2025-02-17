@@ -167,6 +167,21 @@ export const surveyCards = [
 
 
 
+export const noData = [
+  {
+    tag: "div",
+    class: "no-data",
+    children: [
+      {
+        tag: "p",
+        text: "All surveys has been responded",
+      },
+    ],
+  }
+]
+
+
+
 
 
 export function profileSelect() {

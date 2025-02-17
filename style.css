@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
+/* @import url('css/admin-page/style.css');
+@import url('css/create-survey/style.css');
+@import url('css/user-form/style.css');
+@import url('css/user-page/style.css'); */
 
 * {
   margin: 0;
@@ -131,3 +134,10 @@ nav {
     gap: 20px;
 }
 
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* -----------------------------------------admin page--------------------------------------- */

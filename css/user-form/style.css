@@ -266,3 +266,10 @@ textarea.text-input:focus {
   color: red;
   font-size: 0.8rem;
 }
+
+
+
+
+.no-data p {
+  margin: 0;
+}

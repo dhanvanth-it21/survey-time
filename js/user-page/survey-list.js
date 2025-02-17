@@ -1,5 +1,5 @@
 import { createElement } from "../generator.js";
-import { surveyListContainer, surveyCards } from "./data.js";
+import { surveyListContainer, surveyCards, noData } from "./data.js";
 import { navigateTo, serverIp } from "../../script.js";
 
 export async function surveyListInit(div) {
@@ -14,8 +14,7 @@ export async function surveyListInit(div) {
 
   const surveyCards = converter(surveyCardsDB);
 
-  // createElement(surveyCards, cardsContainer);
-  createElement(surveyCards, cardsContainer);
+  surveyCards.length !== 0 ? createElement(surveyCards, cardsContainer) : createElement(noData, cardsContainer);
 
   const surveyCardList = document.querySelectorAll(".survey-card");
 

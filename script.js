@@ -2,6 +2,7 @@ import { createElement } from "./js/generator.js";
 import { navBar, login } from "./data.js";
 import { surveyListInit } from "./js/admin-page/survey-list.js";
 import { responseListInit } from "./js/admin-page/response-list.js";
+import { loginInit } from "./login.js";
 
 export const serverIp = "localhost:8080";
 
@@ -70,18 +71,16 @@ function handleRouteChange() {
 // Function to load the login page
 function loadLoginPage() {
   document.body.innerHTML = "";
-  createElement(navBar, document.body);
-  createElement(login, document.body);
   updateStylesheet("style.css");
-
-  document.getElementById("admin-button").addEventListener("click", () => {
-    navigateTo("admin");
-    
-  });
-
-  document.getElementById("user-button").addEventListener("click", () => {
-    navigateTo("user");
-  });
+  if (window.loginInit) {
+    window.loginInit();
+  } else {
+    import("./login.js")
+      .then((m) => {
+        m.loginInit();
+      })
+      .catch((err) => console.error("Failed to load login page script:", err));
+  }
 }
 
 // Function to lazy load the admin module
